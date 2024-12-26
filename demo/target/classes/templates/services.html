@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Управління Сервісами</title>
+  <link rel="stylesheet">
+</head>
+<body>
+
+<!-- Навігаційне меню -->
+<nav>
+  <a href="/services" aria-label="Перейти до списку сервісів">Сервіси</a>
+  <a href="/resorts" aria-label="Перейти до списку курортів">Курорти</a>
+  <a href="/tours" aria-label="Перейти до списку турів">Тури</a>
+</nav>
+
+<h1>Управління Сервісами</h1>
+
+<!-- Форма додавання сервісу -->
+<h2>Додати Сервіс</h2>
+<form method="POST" action="/services/add">
+  <label for="name">Назва сервісу:</label>
+  <input type="text" id="name" name="name" aria-label="Назва сервісу" required>
+
+  <label for="description">Опис сервісу:</label>
+  <textarea id="description" name="description" aria-label="Опис сервісу" required></textarea>
+
+  <label for="resortId">ID курорту:</label>
+  <input type="number" id="resortId" name="resortId" aria-label="ID курорту" required>
+
+  <button type="submit">Додати</button>
+</form>
+
+<!-- Форма оновлення сервісу -->
+<h2>Оновити Сервіс</h2>
+<form method="POST" action="/services/update">
+  <label for="id">ID Сервісу:</label>
+  <input type="number" id="id" name="id" aria-label="ID сервісу" required>
+
+  <label for="newName">Нова назва:</label>
+  <input type="text" id="newName" name="name" aria-label="Нова назва сервісу" required>
+
+  <label for="newDescription">Новий опис:</label>
+  <textarea id="newDescription" name="description" aria-label="Новий опис сервісу" required></textarea>
+
+  <label for="newResortId">Новий ID курорту:</label>
+  <input type="number" id="newResortId" name="resortId" aria-label="Новий ID курорту" required>
+
+  <button type="submit">Оновити</button>
+</form>
+
+<!-- Форма видалення сервісу -->
+<h2>Видалити Сервіс</h2>
+<form method="POST" action="/services/delete">
+  <label for="deleteId">ID Сервісу:</label>
+  <input type="number" id="deleteId" name="id" aria-label="ID сервісу для видалення" required>
+  <button type="submit">Видалити</button>
+</form>
+
+<!-- Форма пошуку сервісу -->
+<h2>Пошук Сервісів</h2>
+<form method="POST" action="/services/search">
+  <label for="searchName">Назва сервісу:</label>
+  <input type="text" id="searchName" name="name" aria-label="Назва сервісу для пошуку" required>
+  <button type="submit">Пошук</button>
+</form>
+
+<!-- Кнопка перегляду всіх сервісів -->
+<h2>Список Усіx Сервісів</h2>
+<form method="GET" action="/services">
+  <button type="submit">Показати Усі Сервіси</button>
+</form>
+
+<!-- Таблиця для відображення сервісів -->
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Назва</th>
+    <th>Опис</th>
+    <th>ID Курорту</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="service : ${services}">
+    <td th:text="${service.id}"></td>
+    <td th:text="${service.name}"></td>
+    <td th:text="${service.description}"></td>
+    <td th:text="${service.resortId}"></td>
+  </tr>
+  </tbody>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Управління Курортами</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    nav { margin-bottom: 20px; }
+    nav a { padding: 10px 15px; text-decoration: none; color: black; border: 1px solid #ddd; margin-right: 5px; }
+    nav a:hover { background-color: #f0f0f0; }
+    form { margin-bottom: 20px; }
+    input, button { padding: 5px; margin: 5px 0; }
+    table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+    th, td { border: 1px solid #ddd; padding: 8px; }
+    th { background-color: #f2f2f2; }
+  </style>
+</head>
+<body>
+
+<!-- Навігаційне меню -->
+<nav>
+  <a href="/resorts">Курорти</a>
+  <a href="/hotels">Готелі</a>
+  <a href="/activities">Активності</a>
+</nav>
+
+<h1>Управління Курортами</h1>
+
+<!-- Форма додавання курорту -->
+<h2>Додати Курорт</h2>
+<form method="POST" action="/resorts/add">
+  <label for="resortName">Назва:</label>
+  <input type="text" id="resortName" name="name" required>
+  <label for="resortLocation">Місце:</label>
+  <input type="text" id="resortLocation" name="location" required>
+  <label for="resortType">Тип:</label>
+  <input type="text" id="resortType" name="type" required>
+  <label for="resortRating">Рейтинг:</label>
+  <input type="number" step="0.1" id="resortRating" name="rating" required>
+  <button type="submit">Додати</button>
+</form>
+
+<!-- Форма для оновлення курорту -->
+<h2>Оновити Курорт</h2>
+<form method="POST" action="/resorts/update">
+  <label for="resortId">ID Курорту:</label>
+  <input type="number" id="resortId" name="id" required>
+  <label for="newResortName">Нова Назва:</label>
+  <input type="text" id="newResortName" name="name" required>
+  <label for="newResortLocation">Нове Місце:</label>
+  <input type="text" id="newResortLocation" name="location" required>
+  <label for="newResortType">Новий Тип:</label>
+  <input type="text" id="newResortType" name="type" required>
+  <label for="newResortRating">Новий Рейтинг:</label>
+  <input type="number" step="0.1" id="newResortRating" name="rating" required>
+  <button type="submit">Оновити</button>
+</form>
+
+<!-- Форма для видалення курорту -->
+<h2>Видалити Курорт</h2>
+<form method="POST" action="/resorts/delete">
+  <label for="deleteResortId">ID Курорту:</label>
+  <input type="number" id="deleteResortId" name="id" required>
+  <button type="submit">Видалити</button>
+</form>
+
+<!-- Форма для пошуку курортів -->
+<h2>Пошук Курорту</h2>
+<form method="POST" action="/resorts/search">
+  <label for="searchResortName">Назва Курорту:</label>
+  <input type="text" id="searchResortName" name="name" required>
+  <button type="submit">Пошук</button>
+</form>
+
+<!-- Кнопка для перегляду всіх курортів -->
+<h2>Список Усіx Курортів</h2>
+<form method="GET" action="/resorts">
+  <button type="submit">Показати Усі Курорти</button>
+</form>
+
+<!-- Таблиця для відображення курортів -->
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Назва</th>
+    <th>Місце</th>
+    <th>Тип</th>
+    <th>Рейтинг</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="resort : ${resorts}">
+    <td th:text="${resort.id}"></td>
+    <td th:text="${resort.name}"></td>
+    <td th:text="${resort.location}"></td>
+    <td th:text="${resort.type}"></td>
+    <td th:text="${resort.rating}"></td>
+  </tr>
+  </tbody>
+</table>
+
+</body>
+</html>

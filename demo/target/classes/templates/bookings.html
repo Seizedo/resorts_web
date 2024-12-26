@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Управління Бронюваннями</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    nav { margin-bottom: 20px; }
+    nav a { padding: 10px 15px; text-decoration: none; color: black; border: 1px solid #ddd; margin-right: 5px; }
+    nav a:hover { background-color: #f0f0f0; }
+    form { margin-bottom: 20px; }
+    input, button { padding: 5px; margin: 5px 0; }
+    table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+    th, td { border: 1px solid #ddd; padding: 8px; }
+    th { background-color: #f2f2f2; }
+  </style>
+</head>
+<body>
+
+<!-- Навігаційне меню -->
+<nav>
+  <a href="/resorts">Курорти</a>
+  <a href="/services">Послуги</a>
+  <a href="/tours">Тури</a>
+  <a href="/bookings">Бронювання</a>
+</nav>
+
+<h1>Управління Бронюваннями</h1>
+
+<!-- Форма додавання бронювання -->
+<h2>Додати Бронювання</h2>
+<form method="POST" action="/bookings/add">
+  <label for="tourId">ID Туру:</label>
+  <input type="number" id="tourId" name="tourId" required>
+
+  <label for="touristName">Ім'я Туриста:</label>
+  <input type="text" id="touristName" name="touristName" required>
+
+  <label for="contactInfo">Контактна Інформація:</label>
+  <input type="text" id="contactInfo" name="contactInfo" required>
+
+  <label for="status">Статус:</label>
+  <input type="text" id="status" name="status" required>
+
+  <button type="submit">Додати</button>
+</form>
+
+<!-- Форма оновлення бронювання -->
+<h2>Оновити Бронювання</h2>
+<form method="POST" action="/bookings/update">
+  <label for="bookingId">ID Бронювання:</label>
+  <input type="number" id="bookingId" name="id" required>
+
+  <label for="newTourId">Новий ID Туру:</label>
+  <input type="number" id="newTourId" name="tourId" required>
+
+  <label for="newTouristName">Нове Ім'я Туриста:</label>
+  <input type="text" id="newTouristName" name="touristName" required>
+
+  <label for="newContactInfo">Нова Контактна Інформація:</label>
+  <input type="text" id="newContactInfo" name="contactInfo" required>
+
+  <label for="newStatus">Новий Статус:</label>
+  <input type="text" id="newStatus" name="status" required>
+
+  <button type="submit">Оновити</button>
+</form>
+
+<!-- Форма видалення бронювання -->
+<h2>Видалити Бронювання</h2>
+<form method="POST" action="/bookings/delete">
+  <label for="deleteBookingId">ID Бронювання:</label>
+  <input type="number" id="deleteBookingId" name="id" required>
+  <button type="submit">Видалити</button>
+</form>
+
+<!-- Форма пошуку бронювань -->
+<h2>Пошук Бронювань</h2>
+<form method="POST" action="/bookings/search">
+  <label for="searchTouristName">Ім'я Туриста:</label>
+  <input type="text" id="searchTouristName" name="keyword" required>
+  <button type="submit">Пошук</button>
+</form>
+
+<!-- Кнопка для перегляду всіх бронювань -->
+<h2>Список Усіx Бронювань</h2>
+<form method="GET" action="/bookings">
+  <button type="submit">Показати Усі Бронювання</button>
+</form>
+
+<!-- Таблиця для відображення бронювань -->
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Ім'я Туриста</th>
+    <th>Контактна Інформація</th>
+    <th>ID Туру</th>
+    <th>Статус</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="booking : ${bookings}">
+    <td th:text="${booking.id}"></td>
+    <td th:text="${booking.touristName}"></td>
+    <td th:text="${booking.contactInfo}"></td>
+    <td th:text="${booking.tourId}"></td>
+    <td th:text="${booking.status}"></td>
+  </tr>
+  </tbody>
+</table>
+
+</body>
+</html>

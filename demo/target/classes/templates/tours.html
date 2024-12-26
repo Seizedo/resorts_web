@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Управління Турами</title>
+  <link rel="stylesheet">
+</head>
+<body>
+
+<!-- Навігаційне меню -->
+<nav>
+  <a href="/tours">Тури</a>
+  <a href="/customers">Клієнти</a>
+  <a href="/bookings">Бронювання</a>
+</nav>
+
+<h1>Управління Турами</h1>
+
+<!-- Форма додавання туру -->
+<h2>Додати Тур</h2>
+<form method="POST" action="/tours/add">
+  <label for="name">Назва туру:</label>
+  <input type="text" id="name" name="name" placeholder="Введіть назву туру" required>
+  <label for="description">Опис туру:</label>
+  <textarea id="description" name="description" placeholder="Опишіть тур" required></textarea>
+  <label for="price">Ціна туру:</label>
+  <input type="number" id="price" name="price" placeholder="Введіть ціну" step="0.01" required>
+  <label for="duration">Тривалість туру (у днях):</label>
+  <input type="number" id="duration" name="duration" placeholder="Введіть тривалість" required>
+  <button type="submit">Додати</button>
+</form>
+
+<!-- Форма оновлення туру -->
+<h2>Оновити Тур</h2>
+<form method="POST" action="/tours/update">
+  <label for="id">ID Туру:</label>
+  <input type="number" id="id" name="id" placeholder="Введіть ID туру" required>
+  <label for="newName">Нова назва:</label>
+  <input type="text" id="newName" name="name" placeholder="Введіть нову назву" required>
+  <label for="newDescription">Новий опис:</label>
+  <textarea id="newDescription" name="description" placeholder="Опишіть зміни" required></textarea>
+  <label for="newPrice">Нова ціна:</label>
+  <input type="number" id="newPrice" name="price" placeholder="Введіть нову ціну" step="0.01" required>
+  <label for="newDuration">Нова тривалість (у днях):</label>
+  <input type="number" id="newDuration" name="duration" placeholder="Введіть нову тривалість" required>
+  <button type="submit">Оновити</button>
+</form>
+
+<!-- Форма видалення туру -->
+<h2>Видалити Тур</h2>
+<form method="POST" action="/tours/delete">
+  <label for="deleteId">ID Туру:</label>
+  <input type="number" id="deleteId" name="id" placeholder="Введіть ID туру для видалення" required>
+  <button type="submit">Видалити</button>
+</form>
+
+<!-- Форма пошуку туру -->
+<h2>Пошук Турів</h2>
+<form method="POST" action="/tours/search">
+  <label for="searchName">Назва туру:</label>
+  <input type="text" id="searchName" name="name" placeholder="Введіть назву для пошуку" required>
+  <button type="submit">Пошук</button>
+</form>
+
+<!-- Кнопка перегляду всіх турів -->
+<h2>Список Усіx Турів</h2>
+<form method="GET" action="/tours">
+  <button type="submit">Показати Усі Тури</button>
+</form>
+
+<!-- Таблиця для відображення турів -->
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Назва</th>
+    <th>Опис</th>
+    <th>Ціна</th>
+    <th>Тривалість</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="tour : ${tours}">
+    <td th:text="${tour.id}"></td>
+    <td th:text="${tour.name}"></td>
+    <td th:text="${tour.description}"></td>
+    <td th:text="${tour.price}"></td>
+    <td th:text="${tour.duration}"></td>
+  </tr>
+  </tbody>
+</table>
+
+</body>
+</html>
